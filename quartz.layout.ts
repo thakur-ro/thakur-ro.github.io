@@ -5,7 +5,7 @@ import * as Component from "./quartz/components"
 export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
   header: [],
-  afterBody: [Component.CaptureForm()],
+  afterBody: [],
   footer: Component.Footer({
     links: {
       "Source": "https://github.com/thakur-ro/thakur-ro.github.io",
@@ -22,8 +22,15 @@ export const defaultContentPageLayout: PageLayout = {
       condition: (page) => page.fileData.slug !== "index",
     }),
     Component.ArticleTitle(),
-    Component.ContentMeta(),
-    Component.TagList(),
+    Component.ConditionalRender({
+      component: Component.ContentMeta(),
+      condition: (page) => page.fileData.slug !== "capture",
+    }),
+    Component.ConditionalRender({
+      component: Component.TagList(),
+      condition: (page) => page.fileData.slug !== "capture",
+    }),
+    Component.CaptureForm(),
   ],
   left: [
     Component.PageTitle(),
