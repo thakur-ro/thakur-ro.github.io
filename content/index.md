@@ -6,8 +6,6 @@ title: ML/AI Notes
 
 A growing knowledge hub on machine learning, AI systems, and applied engineering — things I've found useful, surprising, or worth remembering.
 
-Organized by concept, not by when I learned it.
-
 ## Areas
 
 - [[retrieval/index|Retrieval & Search]] — RAG, hybrid search, GraphRAG, BM25
