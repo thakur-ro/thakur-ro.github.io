@@ -1,0 +1,226 @@
+@use "./base.scss";
+
+// ─── Typography ───────────────────────────────────────────────────────────────
+
+body {
+  font-size: 16.5px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+article {
+  line-height: 1.75;
+
+  p {
+    line-height: 1.75;
+    margin-top: 0;
+    margin-bottom: 1.25rem;
+    color: var(--darkgray);
+  }
+
+  h1 {
+    font-size: 1.85rem;
+    font-weight: 650;
+    letter-spacing: -0.025em;
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  h2 {
+    font-size: 1.3rem;
+    font-weight: 620;
+    letter-spacing: -0.02em;
+    margin-top: 2.25rem;
+    margin-bottom: 0.6rem;
+  }
+
+  h3 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin-top: 1.75rem;
+    margin-bottom: 0.5rem;
+  }
+}
+
+// ─── Links ────────────────────────────────────────────────────────────────────
+
+// Remove the busy highlight background on internal links
+a.internal {
+  background-color: transparent !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--secondary) 40%, transparent);
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  transition: text-decoration-color 0.2s ease, color 0.2s ease;
+
+  &:hover {
+    text-decoration-color: var(--secondary);
+  }
+}
+
+a {
+  font-weight: 500;
+}
+
+// ─── Sidebar ──────────────────────────────────────────────────────────────────
+
+.sidebar.left {
+  border-right: 1px solid var(--lightgray);
+  padding-top: 2.5rem !important;
+  padding-right: 1.5rem !important;
+  padding-left: 1.5rem !important;
+}
+
+.sidebar.right {
+  padding-top: 2.5rem !important;
+  padding-left: 1.5rem !important;
+}
+
+// ─── Explorer / file tree ─────────────────────────────────────────────────────
+
+.explorer {
+  font-size: 0.875rem;
+}
+
+// ─── Search ───────────────────────────────────────────────────────────────────
+
+#search-button {
+  border-radius: 8px;
+  border: 1px solid var(--lightgray);
+  background: transparent;
+
+  &:hover {
+    background: var(--lightgray);
+    border-color: var(--gray);
+  }
+}
+
+// ─── Article header ───────────────────────────────────────────────────────────
+
+.article-title {
+  font-size: 2rem;
+  font-weight: 680;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+}
+
+.content-meta {
+  font-size: 0.85rem;
+  color: var(--gray);
+  opacity: 0.9;
+}
+
+// ─── Blockquote ───────────────────────────────────────────────────────────────
+
+blockquote {
+  border-left: 2px solid var(--secondary);
+  margin-left: 0;
+  padding-left: 1.25rem;
+  color: var(--gray);
+  font-style: normal;
+
+  p {
+    color: inherit;
+  }
+}
+
+// ─── Code ─────────────────────────────────────────────────────────────────────
+
+code {
+  font-size: 0.85em;
+  background: var(--lightgray);
+  border-radius: 4px;
+  padding: 0.1em 0.35em;
+}
+
+pre {
+  border-radius: 8px;
+  border: 1px solid var(--lightgray);
+}
+
+// ─── Footer ───────────────────────────────────────────────────────────────────
+
+footer {
+  font-size: 0.825rem;
+  color: var(--gray);
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--lightgray);
+  opacity: 0.85;
+
+  a {
+    color: var(--gray);
+    font-weight: 500;
+
+    &:hover {
+      color: var(--secondary);
+    }
+  }
+}
+
+// ─── Graph ────────────────────────────────────────────────────────────────────
+
+.graph {
+  border: 1px solid var(--lightgray);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+// ─── Breadcrumbs ──────────────────────────────────────────────────────────────
+
+.breadcrumb-container {
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+
+// ─── Tags ─────────────────────────────────────────────────────────────────────
+
+.tag-link {
+  background: var(--lightgray) !important;
+  padding: 0.15rem 0.5rem !important;
+  border-radius: 100px !important;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--darkgray) !important;
+  text-decoration: none !important;
+
+  &:hover {
+    background: color-mix(in srgb, var(--secondary) 15%, transparent) !important;
+    color: var(--secondary) !important;
+  }
+
+  &::before {
+    content: "#";
+    opacity: 0.5;
+  }
+}
+
+// ─── Backlinks ────────────────────────────────────────────────────────────────
+
+.backlinks {
+  font-size: 0.85rem;
+
+  h3 {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--gray);
+  }
+}
+
+// ─── Table of contents ────────────────────────────────────────────────────────
+
+.toc {
+  font-size: 0.82rem;
+
+  #toc-header {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--gray);
+  }
+}
