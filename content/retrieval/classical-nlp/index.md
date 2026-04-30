@@ -1,5 +1,5 @@
 ---
-title: Classical NLP
+title: "📚 Classical NLP"
 ---
 
 # Classical NLP

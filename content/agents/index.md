@@ -1,5 +1,5 @@
 ---
-title: Agent Architecture
+title: "🤖 Agent Architecture"
 ---
 
 # Agent Architecture

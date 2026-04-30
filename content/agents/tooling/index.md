@@ -1,5 +1,5 @@
 ---
-title: Tooling & MCP
+title: "🔧 Tooling & MCP"
 ---
 
 # Tooling & MCP

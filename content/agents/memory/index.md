@@ -1,5 +1,5 @@
 ---
-title: Memory & State
+title: "💾 Memory & State"
 ---
 
 # Memory & State

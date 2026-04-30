@@ -1,5 +1,5 @@
 ---
-title: Capture Note
+title: "📝 Capture Note"
 tags: []
 ---
 

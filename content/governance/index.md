@@ -1,5 +1,5 @@
 ---
-title: AI Governance
+title: "🏛️ AI Governance"
 ---
 
 # AI Governance

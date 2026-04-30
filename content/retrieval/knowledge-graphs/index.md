@@ -1,5 +1,5 @@
 ---
-title: Knowledge Graphs
+title: "🕸️ Knowledge Graphs"
 ---
 
 # Knowledge Graphs

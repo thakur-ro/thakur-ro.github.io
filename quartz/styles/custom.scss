@@ -85,6 +85,12 @@ a {
   font-size: 0.875rem;
 }
 
+.explorer-content ul li > a.active {
+  color: var(--secondary) !important;
+  opacity: 1 !important;
+  font-weight: 600;
+}
+
 // ─── Search ───────────────────────────────────────────────────────────────────
 
 #search-button {

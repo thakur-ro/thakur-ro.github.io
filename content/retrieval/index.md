@@ -1,5 +1,5 @@
 ---
-title: Retrieval & Search
+title: "🔍 Retrieval & Search"
 ---
 
 # Retrieval & Search

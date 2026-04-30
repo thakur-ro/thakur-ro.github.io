@@ -1,5 +1,5 @@
 ---
-title: LLM Internals
+title: "🧠 LLM Internals"
 ---
 
 # LLM Internals
