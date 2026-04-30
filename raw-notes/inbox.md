@@ -10,3 +10,11 @@ Run Claude Code on this file to refine entries into proper notes.
 *2026-04-30 16:19 UTC*
 
 raw note to test secret access
+
+
+---
+
+## ok great
+*2026-04-30 16:19 UTC*
+
+ok great
