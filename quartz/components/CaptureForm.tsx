@@ -234,7 +234,7 @@ function initCaptureForm() {
       })
       const data = await res.json()
       if (res.ok) {
-        showStatus("✓ Saved — " + data.path.split("/").pop(), "success")
+        showStatus("✓ Added to inbox", "success")
         document.getElementById("note-title").value = ""
         document.getElementById("note-body").value = ""
         setTimeout(hideStatus, 4000)
