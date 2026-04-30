@@ -17,7 +17,7 @@ const config: QuartzConfig = {
     },
     locale: "en-US",
     baseUrl: "thakur-ro.github.io",
-    ignorePatterns: ["private", "templates", ".obsidian"],
+    ignorePatterns: ["private", "templates", ".obsidian", "raw-notes"],
     defaultDateType: "modified",
     theme: {
       fontOrigin: "googleFonts",
