@@ -58,11 +58,7 @@ function saveConfig() {
 
 async function submitNote(e) {
   e.preventDefault()
-  const apiUrl = localStorage.getItem("capture_api_url")
-  if (!apiUrl) {
-    document.getElementById("submit-status").textContent = "⚠ Set the API URL in ⚙ Settings first"
-    return
-  }
+  const apiUrl = localStorage.getItem("capture_api_url") || "https://thakur-ro-github-io.vercel.app/api/capture"
 
   const title = document.getElementById("note-title").value.trim()
   const body = document.getElementById("note-body").value.trim()
