@@ -58,6 +58,11 @@ export default async function handler(req, res) {
   const { title, body } = req.body
   if (!title || !body) return res.status(400).json({ error: "title and body are required" })
 
+  const secret = process.env.CAPTURE_SECRET
+  if (secret && req.headers["x-capture-secret"] !== secret) {
+    return res.status(401).json({ error: "Unauthorized" })
+  }
+
   const token = process.env.NOTES_PAT
   if (!token) return res.status(500).json({ error: "NOTES_PAT not configured on server" })
 

@@ -45,6 +45,11 @@ const CaptureForm: QuartzComponent = ({ fileData }: QuartzComponentProps) => {
           <input id="api-url" type="text" placeholder="https://your-project.vercel.app/api/capture" />
           <button id="save-config-btn" class="capture-btn-primary" style="white-space:nowrap">Save</button>
         </div>
+        <p class="capture-label" style="margin-top:0.75rem">Secret key</p>
+        <div class="capture-config-row">
+          <input id="capture-secret" type="password" placeholder="Same value as CAPTURE_SECRET in Vercel" />
+          <button id="save-secret-btn" class="capture-btn-primary" style="white-space:nowrap">Save</button>
+        </div>
       </div>
     </div>
   )
@@ -180,16 +185,24 @@ CaptureForm.css = `
 
 CaptureForm.afterDOMLoaded = `
 const API_URL = "https://thakur-ro-github-io.vercel.app/api/capture"
+let _captureAbort = null
 
 function initCaptureForm() {
   const form = document.getElementById("capture-form")
   if (!form) return
 
+  // Cancel any previously attached listeners before re-attaching
+  if (_captureAbort) _captureAbort.abort()
+  _captureAbort = new AbortController()
+  const sig = { signal: _captureAbort.signal }
+
   const statusBar = document.getElementById("capture-status-bar")
   const toggleBtn = document.getElementById("toggle-config-btn")
   const saveConfigBtn = document.getElementById("save-config-btn")
+  const saveSecretBtn = document.getElementById("save-secret-btn")
   const configSection = document.getElementById("config-section")
   const apiUrlInput = document.getElementById("api-url")
+  const secretInput = document.getElementById("capture-secret")
 
   function showStatus(msg, type) {
     statusBar.textContent = msg
@@ -205,20 +218,33 @@ function initCaptureForm() {
   toggleBtn.addEventListener("click", function() {
     const visible = configSection.style.display === "block"
     configSection.style.display = visible ? "none" : "block"
-    if (!visible) apiUrlInput.value = localStorage.getItem("capture_api_url") || ""
-  })
+    if (!visible) {
+      apiUrlInput.value = localStorage.getItem("capture_api_url") || ""
+      secretInput.value = ""
+    }
+  }, sig)
 
   saveConfigBtn.addEventListener("click", function() {
     const url = apiUrlInput.value.trim()
     if (url) localStorage.setItem("capture_api_url", url)
     configSection.style.display = "none"
-    showStatus("✓ API endpoint saved", "success")
+    showStatus("✓ Settings saved", "success")
     setTimeout(hideStatus, 2000)
-  })
+  }, sig)
+
+  saveSecretBtn.addEventListener("click", function() {
+    const secret = secretInput.value.trim()
+    if (secret) localStorage.setItem("capture_secret", secret)
+    secretInput.value = ""
+    configSection.style.display = "none"
+    showStatus("✓ Secret saved", "success")
+    setTimeout(hideStatus, 2000)
+  }, sig)
 
   form.addEventListener("submit", async function(e) {
     e.preventDefault()
     const apiUrl = localStorage.getItem("capture_api_url") || API_URL
+    const secret = localStorage.getItem("capture_secret") || ""
     const title = document.getElementById("note-title").value.trim()
     const body = document.getElementById("note-body").value.trim()
     const btn = document.getElementById("submit-btn")
@@ -227,9 +253,12 @@ function initCaptureForm() {
     showStatus("Saving...", "loading")
 
     try {
+      const headers = { "Content-Type": "application/json" }
+      if (secret) headers["x-capture-secret"] = secret
+
       const res = await fetch(apiUrl, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers,
         body: JSON.stringify({ title, body }),
       })
       const data = await res.json()
@@ -247,7 +276,7 @@ function initCaptureForm() {
     }
 
     btn.disabled = false
-  })
+  }, sig)
 }
 
 document.addEventListener("nav", initCaptureForm)
