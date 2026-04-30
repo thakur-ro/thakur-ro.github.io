@@ -23,23 +23,21 @@ None of these are proximity in embedding space. They're structural relationships
 
 ## The Full Pipeline
 
-```
-Question
-   │
-   ▼
-[Hybrid Retrieval: Dense + BM25 + RRF]
-   │
-   ▼
-Top-k Documents
-   │
-   ▼
-[Graph Enrichment: Neo4j]
-   ├── Related by shared ontology terms
-   ├── Citation lineage (upstream foundational papers)
-   └── Entity co-occurrence
-   │
-   ▼
-Combined Context → LLM → Grounded Answer
+```mermaid
+flowchart TD
+    Q([🔍 Question]) --> HR["Hybrid Retrieval\nDense + BM25 + RRF"]
+    HR --> TopK[Top-k Documents]
+    TopK --> GE["Graph Enrichment\n(Neo4j)"]
+    GE --> Ont[Shared ontology terms]
+    GE --> Cit[Citation lineage]
+    GE --> Ent[Entity co-occurrence]
+    Ont & Cit & Ent --> Ctx[Combined Context]
+    Ctx --> LLM[LLM]
+    LLM --> Ans([💡 Grounded Answer])
+
+    style HR fill:#e8f4f8,stroke:#4a9eca
+    style GE fill:#f3eeff,stroke:#9966cc
+    style LLM fill:#fef3e2,stroke:#e0963a
 ```
 
 ## Graph Schema

@@ -8,10 +8,10 @@ A growing knowledge hub on machine learning, AI systems, and applied engineering
 
 ## Areas
 
-- [[agents/index|Agent Architecture]] — Harness engineering, memory, agentic loops, evaluation, tooling
-- [[retrieval/index|Retrieval & Search]] — RAG, hybrid search, GraphRAG, knowledge graphs, classical NLP
-- [[llm-internals/index|LLM Internals]] — Decision boundaries, user models, bias
-- [[governance/index|AI Governance]] — Blueprints, operating models, org structure
+- 🤖 [[agents/index|Agent Architecture]] — Harness engineering, memory, agentic loops, evaluation, tooling
+- 🔍 [[retrieval/index|Retrieval & Search]] — RAG, hybrid search, GraphRAG, knowledge graphs, classical NLP
+- 🧠 [[llm-internals/index|LLM Internals]] — Decision boundaries, user models, bias
+- 🏛️ [[governance/index|AI Governance]] — Blueprints, operating models, org structure
 
 ## Recently Added
 

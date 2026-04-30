@@ -8,6 +8,19 @@ date: 2026-04-29
 
 Vector search alone has a failure mode that's easy to miss: **semantic drift**. A query for "p53 mutations in glioblastoma" returns papers about p53 *or* about glioblastoma — semantically adjacent but not the intersection you wanted. The fix is hybrid search: run dense and sparse retrieval in parallel and fuse the results by rank.
 
+```mermaid
+flowchart LR
+    Q([🔍 Query]) --> DE[Dense\nEncoder]
+    Q --> SP[BM25\nSparse]
+    DE -->|"top k×3"| RRF((RRF\nFusion))
+    SP -->|"top k×3"| RRF
+    RRF --> R([✅ Top-k Results])
+
+    style DE fill:#e8f4f8,stroke:#4a9eca
+    style SP fill:#fef3e2,stroke:#e0963a
+    style RRF fill:#eef6ee,stroke:#5aaa5a
+```
+
 ## The Two Primitives
 
 **Dense vectors** — an embedding model converts text to a fixed-length float vector (e.g. 1536-dim for `text-embedding-3-small`). Similar meanings end up geometrically close. Strength: handles synonyms, paraphrasing, semantic relationships. Weakness: dilutes exact terms in high-dimensional space.

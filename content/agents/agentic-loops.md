@@ -10,6 +10,22 @@ date: 2026-04-28
 
 The loop — how an agent decides what to do next, executes it, reads the result, and decides again — is where most agent failures happen. A well-designed loop recovers from errors. A poorly designed loop amplifies them.
 
+```mermaid
+flowchart TD
+    Goal([🎯 Goal]) --> Plan[Think & Plan]
+    Plan --> Act[Execute Tool]
+    Act --> Obs[Observe Result]
+    Obs --> Val{Valid?}
+    Val -->|done| Done([✅ Complete])
+    Val -->|continue| Plan
+    Val -->|error| Fix[Update State]
+    Fix --> Plan
+
+    style Goal fill:#f0f4ff,stroke:#6674cc
+    style Done fill:#eef6ee,stroke:#5aaa5a
+    style Fix fill:#fff0f0,stroke:#cc6666
+```
+
 ## The Loop Progression
 
 | Stage | What it adds |
