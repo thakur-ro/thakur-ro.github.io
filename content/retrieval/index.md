@@ -13,3 +13,8 @@ The key insight that runs through this section: **no single retrieval method is 
 - [[hybrid-search|Hybrid Search: Dense + Sparse + RRF]] — Why vector search alone drifts, and how combining BM25 with dense retrieval via RRF fixes it
 - [[graphrag|GraphRAG: When Vectors Aren't Enough]] — Adding citation graphs, ontology, and co-occurrence to retrieval pipelines
 - [[rag-fundamentals|RAG Fundamentals]] — The baseline: grounding LLM answers in retrieved documents
+
+## Subsections
+
+- [[retrieval/knowledge-graphs/index|Knowledge Graphs]] — Graph-based context, HDC, entity resolution
+- [[retrieval/classical-nlp/index|Classical NLP]] — Topic modeling at scale, BERTopic, FAISS
