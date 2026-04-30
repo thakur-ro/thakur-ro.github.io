@@ -4,41 +4,179 @@ const CaptureForm: QuartzComponent = ({ fileData }: QuartzComponentProps) => {
   if (fileData.slug !== "capture") return null
 
   return (
-    <div id="capture-app" style="margin-top: 1.5rem">
-      <div id="capture-status-bar" style="display:none; padding: 0.75rem 1rem; border-radius: 8px; margin-bottom: 1rem; font-size: 0.95rem; font-weight: 500"></div>
-
-      <div id="config-section" style="display:none; margin-bottom:1.5rem; padding:1rem; border:1px solid var(--lightgray); border-radius:8px; background:var(--lightgray)">
-        <p style="margin:0 0 0.5rem; font-size:0.85rem; color:var(--gray)">API endpoint (override default)</p>
-        <div style="display:flex; gap:0.5rem">
-          <input id="api-url" type="text" placeholder="https://your-project.vercel.app/api/capture"
-            style="flex:1; padding:0.5rem 0.75rem; border:1px solid var(--lightgray); border-radius:6px; font-size:0.9rem; background:var(--light); color:var(--darkgray); font-family:var(--codeFont)" />
-          <button id="save-config-btn" style="padding:0.5rem 1rem; background:var(--secondary); color:white; border:none; border-radius:6px; cursor:pointer; font-size:0.85rem; font-weight:600">Save</button>
-        </div>
-      </div>
+    <div id="capture-app">
+      <div id="capture-status-bar"></div>
 
       <form id="capture-form">
-        <div style="margin-bottom:1rem">
-          <input id="note-title" type="text" placeholder="Title / topic (e.g. ODSC talk on GraphRAG)" required
-            style="width:100%; box-sizing:border-box; padding:0.6rem 0.75rem; border:1px solid var(--lightgray); border-radius:6px; font-size:1rem; background:var(--light); color:var(--darkgray); font-family:var(--bodyFont)" />
+        <div class="capture-field">
+          <label class="capture-label" for="note-title">📌 Topic</label>
+          <input
+            id="note-title"
+            type="text"
+            placeholder="e.g. ODSC talk on GraphRAG, quick idea about memory compression..."
+            required
+            autocomplete="off"
+          />
         </div>
-        <div style="margin-bottom:1rem">
-          <textarea id="note-body" placeholder="Raw thoughts, fragments, bullet points — anything goes..." required rows={12}
-            style="width:100%; box-sizing:border-box; padding:0.75rem; border:1px solid var(--lightgray); border-radius:6px; font-size:0.95rem; line-height:1.6; background:var(--light); color:var(--darkgray); font-family:var(--bodyFont); resize:vertical"></textarea>
+
+        <div class="capture-field">
+          <label class="capture-label" for="note-body">🧠 Raw thoughts</label>
+          <textarea
+            id="note-body"
+            placeholder={"Fragments, bullet points, half-formed ideas — anything goes.\nYou'll refine this later with Claude Code."}
+            required
+            rows={14}
+          ></textarea>
         </div>
-        <div style="display:flex; gap:0.75rem; align-items:center; flex-wrap:wrap">
-          <button type="submit" id="submit-btn"
-            style="padding:0.6rem 1.5rem; background:var(--secondary); color:white; border:none; border-radius:6px; cursor:pointer; font-size:0.95rem; font-weight:600">
-            Save Note
+
+        <div class="capture-actions">
+          <button type="submit" id="submit-btn" class="capture-btn-primary">
+            💾 Save to raw-notes
           </button>
-          <button type="button" id="toggle-config-btn"
-            style="padding:0.6rem 1rem; background:transparent; color:var(--gray); border:1px solid var(--lightgray); border-radius:6px; cursor:pointer; font-size:0.85rem">
-            ⚙ Settings
+          <button type="button" id="toggle-config-btn" class="capture-btn-ghost">
+            ⚙
           </button>
         </div>
       </form>
+
+      <div id="config-section">
+        <p class="capture-label">API endpoint (override default)</p>
+        <div class="capture-config-row">
+          <input id="api-url" type="text" placeholder="https://your-project.vercel.app/api/capture" />
+          <button id="save-config-btn" class="capture-btn-primary" style="white-space:nowrap">Save</button>
+        </div>
+      </div>
     </div>
   )
 }
+
+CaptureForm.css = `
+#capture-app {
+  margin-top: 2rem;
+}
+
+#capture-status-bar {
+  display: none;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.25rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border: 1px solid transparent;
+}
+
+#capture-status-bar.success {
+  background: color-mix(in srgb, #5aaa5a 10%, transparent);
+  border-color: #5aaa5a;
+  color: #2d7a2d;
+}
+
+#capture-status-bar.error {
+  background: color-mix(in srgb, #cc6666 10%, transparent);
+  border-color: #cc6666;
+  color: #993333;
+}
+
+#capture-status-bar.loading {
+  background: var(--lightgray);
+  border-color: var(--lightgray);
+  color: var(--gray);
+}
+
+.capture-field {
+  margin-bottom: 1.25rem;
+}
+
+.capture-label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--gray);
+  margin-bottom: 0.4rem;
+}
+
+#capture-form input[type="text"],
+#capture-form textarea,
+#config-section input[type="text"] {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.65rem 0.85rem;
+  border: 1.5px solid var(--lightgray);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  background: var(--light);
+  color: var(--darkgray);
+  font-family: var(--bodyFont);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  resize: vertical;
+}
+
+#capture-form input[type="text"]:focus,
+#capture-form textarea:focus,
+#config-section input[type="text"]:focus {
+  outline: none;
+  border-color: var(--secondary);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--secondary) 15%, transparent);
+}
+
+.capture-actions {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+  margin-top: 0.25rem;
+}
+
+.capture-btn-primary {
+  padding: 0.6rem 1.4rem;
+  background: var(--secondary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: var(--bodyFont);
+  transition: opacity 0.15s ease;
+}
+
+.capture-btn-primary:hover { opacity: 0.85; }
+.capture-btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.capture-btn-ghost {
+  padding: 0.6rem 0.85rem;
+  background: transparent;
+  color: var(--gray);
+  border: 1.5px solid var(--lightgray);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-family: var(--bodyFont);
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.capture-btn-ghost:hover {
+  border-color: var(--gray);
+  color: var(--darkgray);
+}
+
+#config-section {
+  display: none;
+  margin-top: 1.25rem;
+  padding: 1rem 1.25rem;
+  border: 1.5px solid var(--lightgray);
+  border-radius: 10px;
+  background: var(--lightgray);
+}
+
+.capture-config-row {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.4rem;
+}
+`
 
 CaptureForm.afterDOMLoaded = `
 const API_URL = "https://thakur-ro-github-io.vercel.app/api/capture"
@@ -55,24 +193,17 @@ function initCaptureForm() {
 
   function showStatus(msg, type) {
     statusBar.textContent = msg
+    statusBar.className = type
     statusBar.style.display = "block"
-    if (type === "success") {
-      statusBar.style.background = "color-mix(in srgb, #5aaa5a 12%, transparent)"
-      statusBar.style.border = "1px solid #5aaa5a"
-      statusBar.style.color = "#2d7a2d"
-    } else if (type === "error") {
-      statusBar.style.background = "color-mix(in srgb, #cc6666 12%, transparent)"
-      statusBar.style.border = "1px solid #cc6666"
-      statusBar.style.color = "#993333"
-    } else {
-      statusBar.style.background = "var(--lightgray)"
-      statusBar.style.border = "1px solid var(--lightgray)"
-      statusBar.style.color = "var(--gray)"
-    }
+  }
+
+  function hideStatus() {
+    statusBar.style.display = "none"
+    statusBar.className = ""
   }
 
   toggleBtn.addEventListener("click", function() {
-    const visible = configSection.style.display !== "none"
+    const visible = configSection.style.display === "block"
     configSection.style.display = visible ? "none" : "block"
     if (!visible) apiUrlInput.value = localStorage.getItem("capture_api_url") || ""
   })
@@ -81,7 +212,8 @@ function initCaptureForm() {
     const url = apiUrlInput.value.trim()
     if (url) localStorage.setItem("capture_api_url", url)
     configSection.style.display = "none"
-    showStatus("API endpoint saved", "success")
+    showStatus("✓ API endpoint saved", "success")
+    setTimeout(hideStatus, 2000)
   })
 
   form.addEventListener("submit", async function(e) {
@@ -92,7 +224,7 @@ function initCaptureForm() {
     const btn = document.getElementById("submit-btn")
 
     btn.disabled = true
-    showStatus("Saving...", "info")
+    showStatus("Saving...", "loading")
 
     try {
       const res = await fetch(apiUrl, {
@@ -102,9 +234,10 @@ function initCaptureForm() {
       })
       const data = await res.json()
       if (res.ok) {
-        showStatus("✓ Saved to raw-notes/" + data.path.split("/").pop(), "success")
+        showStatus("✓ Saved — " + data.path.split("/").pop(), "success")
         document.getElementById("note-title").value = ""
         document.getElementById("note-body").value = ""
+        setTimeout(hideStatus, 4000)
       } else {
         showStatus("✗ " + data.error, "error")
       }

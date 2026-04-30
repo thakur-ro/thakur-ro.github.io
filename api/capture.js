@@ -21,8 +21,9 @@ export default async function handler(req, res) {
 
   const now = new Date()
   const date = now.toISOString().slice(0, 10)
-  const time = now.toTimeString().slice(0, 5).replace(":", "-")
-  const filename = `raw-notes/${date}-${time}-${slugify(title)}.md`
+  const time = now.toTimeString().slice(0, 8).replace(/:/g, "-")
+  const rand = Math.random().toString(36).slice(2, 6)
+  const filename = `raw-notes/${date}-${time}-${rand}-${slugify(title)}.md`
   const content = `---\ntitle: "${title}"\ndate: ${date}\nstatus: raw\n---\n\n${body}\n`
 
   const ghRes = await fetch(`https://api.github.com/repos/${REPO}/contents/${filename}`, {
